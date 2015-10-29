@@ -7,5 +7,5 @@ import (
 
 func init() {
 	beego.Router("/", &controllers.MainController{})
-	beego.Router("/login", &controllers.MainController{}, "get:LoginGet")
+	beego.Router("/login", &controllers.LoginController{})
 }
