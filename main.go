@@ -1,11 +1,11 @@
 package main
 
 import (
-	_ "mes/routers"
 	"github.com/astaxie/beego"
+	_ "mes/routers"
 )
 
 func main() {
+	// 运行系统
 	beego.Run()
 }
-
