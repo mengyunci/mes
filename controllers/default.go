@@ -15,4 +15,3 @@ func (c *MainController) Get() {
 func (this *MainController) LoginGet() {
 	this.TplNames = "login.tpl"
 }
-
