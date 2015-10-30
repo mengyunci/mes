@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/astaxie/beego"
+	"fmt"
 )
 
 type LoginController struct {
@@ -16,10 +16,22 @@ func (this *LoginController) Get() {
 func (this *LoginController) Post() {
 	username := this.GetString("username")
 	password := this.GetString("password")
-	fmt.Println(username)
-	fmt.Println(password)
 	if username == "admin" && password == "admin" {
-		this.TplNames = "index.html"
+		this.SetSession("username",username)
+		this.Redirect("/index",302)
+	} else {
+		this.Redirect("/login",302)
 	}
-	this.TplNames = "login.html"
+}
+
+func (this *LoginController) Index() {
+	username := this.GetSession("username")
+	fmt.Println(username)
+
+	if  username != nil {
+		this.Data["title"] = "欢迎"
+		this.TplNames = "index.html"
+	} else {
+		this.Redirect("/login",302)
+	}
 }
