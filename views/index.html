@@ -1,174 +1,238 @@
 {{template "header.html" .}}
 {{template "nav.html" .}}
 
+<script type="text/javascript" src="static/echarts/echarts.js"></script>
 
-<div class="container">
-    <!-- left, vertical navbar & content -->
-    <div class="row">
-        <!-- left, vertical navbar -->
-        <div class="col-md-2 bootstrap-admin-col-left">
-            <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
-                <li class="active">
-                    <a href="about.html"><i class="glyphicon glyphicon-chevron-right"></i> About</a>
-                </li>
-                <li>
-                    <a href="dashboard.html"><i class="glyphicon glyphicon-chevron-right"></i> Dashboard</a>
-                </li>
-                <li class="disabled">
-                    <a href="#"><i class="glyphicon glyphicon-chevron-right"></i> Calendar</a><!-- calendar.html -->
-                </li>
-                <li class="disabled">
-                    <a href="#"><i class="glyphicon glyphicon-chevron-right"></i> Statistics (Charts)</a><!-- stats.html -->
-                </li>
-                <li>
-                    <a href="forms.html"><i class="glyphicon glyphicon-chevron-right"></i> Forms</a>
-                </li>
-                <li>
-                    <a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> Tables</a>
-                </li>
-                <li>
-                    <a href="buttons-and-icons.html"><i class="glyphicon glyphicon-chevron-right"></i> Buttons &amp; Icons</a>
-                </li>
-                <li>
-                    <a href="wysiwyg-editors.html"><i class="glyphicon glyphicon-chevron-right"></i> WYSIWYG Editors</a>
-                </li>
-                <li>
-                    <a href="ui-and-interface.html"><i class="glyphicon glyphicon-chevron-right"></i> UI &amp; Interface</a>
-                </li>
-                <li>
-                    <a href="error-pages.html"><i class="glyphicon glyphicon-chevron-right"></i> Error pages</a>
-                </li>
-                <li>
-                    <a href="forms.html"><i class="glyphicon glyphicon-chevron-down"></i> Submenu</a>
-                    <ul class="nav navbar-collapse bootstrap-admin-navbar-side">
-                        <li><a href="about.html"><i class="glyphicon glyphicon-chevron-right"></i> Submenu 1</a></li>
-                        <li><a href="about.html"><i class="glyphicon glyphicon-chevron-right"></i> Submenu 2</a></li>
-                        <li><a href="about.html"><i class="glyphicon glyphicon-chevron-right"></i> Submenu 3</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><span class="badge pull-right">731</span> Orders</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge pull-right">812</span> Invoices</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge pull-right">27</span> Clients</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge pull-right">1,234</span> Users</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge pull-right">2,221</span> Messages</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge pull-right">11</span> Reports</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge pull-right">83</span> Errors</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge pull-right">4,231</span> Logs</a>
-                </li>
-            </ul>
+<link rel="stylesheet" href="static/css/mdc/style.css"/>
+<div id="equipment_monitor_div" class="row">
+    <div class="main">
+        <!--上排设备名称-->
+        <div class="inc-mes">
+            <div class="cell20">LH511</div>
+            <div class="cell20">LH522</div>
+            <div class="cell20">LH533</div>
+            <div class="cell20">OP60-1</div>
+            <div class="cell20">OP60-3L</div>
+            <div class="clear"></div>
         </div>
 
-        <!-- content -->
-        <div class="col-md-10">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="page-header bootstrap-admin-content-title">
-                        <h1>Bootstrap 3.x Admin's Theme</h1>
-                        <a href="https://github.com/meritoo/Bootstrap-3-Admin-Theme" class="action btn">
-                            Go to GitHub &raquo;
-                        </a>
-                        <a href="https://github.com/meritoo/Bootstrap-3-Admin-Theme/archive/master.zip" class="action">
-                            <button class="btn btn-success">Download (.zip)</button>
-                        </a>
-                    </div>
+        <!--上排设备图片-->
+        <div class="inc-box">
+            <a datatype="A1">
+                <div class="div20">
+                    <img id="equipment_A1"  src="static/images/mdc/green.png" class="light" />
+                    <img src="static/images/mdc/inc-5.png" title="LH511" class="inc"/>
                 </div>
+            </a>
+            <a datatype="A3">
+                <div class="div20">
+                    <img id="equipment_A3"  src="static/images/mdc/green.png" class="light" />
+                    <img src="static/images/mdc/inc-4.png" title="LH522" class="inc"/>
+                </div>
+            </a>
+            <a datatype="A5">
+                <div class="div20">
+                    <img id="equipment_A5"  src="static/images/mdc/green.png" class="light" />
+                    <img src="static/images/mdc/inc-3.png" title="LH533" class="inc" />
+                </div>
+            </a>
+            <a datatype="A7">
+                <div class="div20">
+                    <img id="equipment_A7"  src="static/images/mdc/green.png" class="light" />
+                    <img src="static/images/mdc/inc-7.png" title="OP60-1" class="inc"/>
+                </div>
+            </a>
+            <a datatype="A9">
+                <div class="div20">
+                    <img id="equipment_A9"  src="static/images/mdc/green.png" class="light" />
+                    <img src="static/images/mdc/inc-1.png" title="OP60-3L"  class="inc"/>
+                </div>
+            </a>
+        </div>
+        <!--机器人-->
+        <div class="robot-box">
+            <div class="robot-box-l">
+                <img id="equipment_A13"  src="static/images/mdc/green.png" class="fl-l-120"/>
+                <img src="static/images/mdc/robot.png"/>
+                <div class="cell20" style="padding-left: 160px">Robot50</div>
+                <!--<div class="robot-float" ><img src="static/images/mdc/arr1.gif"/></div>-->
             </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">Details</div>
-                        </div>
-                        <div class="bootstrap-admin-panel-content">
-                            <ul>
-                                <li>An admin theme built with <a href="http://getbootstrap.com" target="_blank">Bootstrap 3.x.</a></li>
-                                <li>Free for personal and commercial use</li>
-                                <li>Inspired by and based on <a href="https://github.com/VinceG/Bootstrap-Admin-Theme" target="_blank">Bootstrap-Admin-Theme</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">Source</div>
-                        </div>
-                        <div class="bootstrap-admin-panel-content">
-                            <ul>
-                                <li>
-                                    <a href="https://github.com/meritoo/Bootstrap-3-Admin-Theme" target="_blank">Github Repository</a>
-                                </li>
-                                <li>
-                                    <a href="https://github.com/meritoo/Bootstrap-3-Admin-Theme/archive/master.zip">Download (.zip package)</a>
-                                </li>
-                                <li>
-                                    License: MIT (see below)
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <div class="robot-box-l">
+                <img id="equipment_A14"  src="static/images/mdc/green.png" class="fl-l-120"/>
+                <img src="static/images/mdc/robot.png" />
+                <!--<div class="robot-float" ><img src="images/arr1.gif"/></div>-->
+                <div class="cell20" style="padding-left: 160px">Robot60</div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="text-muted bootstrap-admin-box-title">License</div>
-                        </div>
-                        <div class="bootstrap-admin-panel-content">
-                            <p>The MIT License (MIT)</p>
-                            <p>Copyright © 2013 - Meritoo.pl &lt;github [at] meritoo [dot] pl&gt;</p>
-                            <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-                            <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-                            <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="bs-docs-masthead">
-                        <a href="http://getbootstrap.com" target="_blank">
-                            <h1>Bootstrap</h1>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 meritoo-logo">
-                    <a href="http://www.meritoo.pl" target="_blank">
-                        <img src="/static/images/logo-meritoo.png" alt="Meritoo.pl">
-                        <span>Internet software house</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="row row-urls">
-                <div class="col-md-6">
-                    <a href="http://getbootstrap.com" target="_blank">Bootstrap 3.x</a>
-                </div>
-                <div class="col-md-6">
-                    <a href="http://www.meritoo.pl" target="_blank">Meritoo.pl</a>
-                </div>
+            <div class="robot-box-l">
+                <img id="equipment_A15"  src="static/images/mdc/green.png" class="fl-l-120"/>
+                <img src="static/images/mdc/robot.png" />
+                <!--<div class="robot-float" ><img src="images/arr1.gif"/></div>-->
+                <div class="cell20" style="padding-left: 160px">去毛刺</div>
             </div>
         </div>
+        <!--下排设备图片-->
+        <div class="inc-box">
+            <a datatype="A2">
+                <div class="div20">
+                    <img id="equipment_A2" src="static/images/mdc/green.png" class="light" />
+                    <img src="static/images/mdc/inc-10.png" title="RH501" class="inc"/>
+                </div>
+            </a>
+            <a datatype="A4">
+                <div class="div20">
+                    <img id="equipment_A4"  src="static/images/mdc/green.png" class="light" />
+                    <img src="static/images/mdc/inc-9.png" title="RH502" class="inc"/>
+                </div>
+            </a>
+            <a datatype="A6">
+                <div class="div20">
+                    <img id="equipment_A6"  src="static/images/mdc/green.png" class="light" />
+                    <img src="static/images/mdc/inc-8.png" title="RH503" class="inc"/>
+                </div>
+            </a>
+            <a datatype="A8">
+                <div  class="div20">
+                    <img id="equipment_A8"  src="static/images/mdc/green.png" class="light" />
+                    <img src="static/images/mdc/inc-2.png" title="OP60-2"  class="inc"/>
+                </div>
+            </a>
+            <a datatype="A10">
+                <div  class="div20">
+                    <img id="equipment_A10"  src="static/images/mdc/green.png" class="light" />
+                    <img src="static/images/mdc/inc-6.png" title="OP60-3R"  class="inc"/>
+                </div>
+            </a>
+        </div>
+        <!--下排设备名称-->
+        <div class="inc-mes">
+            <div class="cell20">RH501</div>
+            <div class="cell20">RH502</div>
+            <div class="cell20">RH503</div>
+            <div class="cell20">OP60-2</div>
+            <div class="cell20">OP60-3R</div>
+            <div class="clear"></div>
+
+        </div>
+        <!--屏幕左箭头-->
+        <div class="scr-1"><img src="static/images/mdc/arr-up.png" /></div>
+        <!--屏幕右上箭头-->
+        <div class="scr-2"><img src="static/images/mdc/arr-down.png" /></div>
+        <!--屏幕右下箭头-->
+        <div class="scr-3"><img src="static/images/mdc/arr-up.png" /></div>
+    </div>
+    <div id="mdcEquiMoni-tab-tools" style="width: 650px; float: right">
+        <table width="600px;" align="center">
+            <tr>
+                <td align="right">关机</td>
+                <td align="left">
+                    <div style="width: 15px;height: 15px;background-color: #A8A8A8;"></div>
+                </td>
+                <td align="right"><label id="mdcEquiMoni-lbl-closed"></label></td>
+                <td align="right">待机</td>
+                <td align="left">
+                    <div style="width: 15px;height: 15px;background-color: yellow"></div>
+                </td>
+                <td align="right"><label id="mdcEquiMoni-lbl-waiting"></label></td>
+                <td align="right">加工</td>
+                <td align="left">
+                    <div style="width: 15px;height: 15px;background-color: #00ee00"></div>
+                </td>
+                <td align="right"><label id="mdcEquiMoni-lbl-processing"></label></td>
+                <td align="right">报警</td>
+                <td align="left">
+                    <div style="width: 15px;height: 15px;background-color: red"></div>
+                </td>
+                <td align="right"><label id="mdcEquiMoni-lbl-erroring"></label></td>
+            </tr>
+        </table>
     </div>
 </div>
+<div id="mdcEquiInfo" style="display: none; padding: 5px;">
+    <table style="height: 10%;width: 100%">
+        <tr>
+            <td>
+                <p>设备编号</p>
+            </td>
+            <td>
+                <input id="mdcEquiMoni-equipmentID" class="easyui-textbox" data-options="readonly:true">
+            </td>
+            <td>
+                <p>设备名称</p>
+            </td>
+            <td>
+                <input id="mdcEquiMoni-equipmentName" class="easyui-textbox" data-options="readonly:true">
+            </td>
+            <td>
+            控制系统:
+        </td>
+            <td>
+                <input id="continuousSys" class="easyui-textbox" data-options="disabled:true" style="height:22px">
+            </td>
+        </tr>
+    </table>
+    <fieldset style="width: 100%;height: 89%">
+        <legend><p>监控数据</p></legend>
+        <table style="width: 100%;height: 99%">
+            <tr>
+                <td colspan="2">
+                    <div id="mdcEquiMoniGauge1" style="width: 200px; height: 200px;margin : 0 auto"
+                         align="center">主轴倍率
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div id="mdcEquiMoniGauge2" style="width: 200px; height: 200px;margin : 0 auto"
+                         align="center">进给倍率
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div id="mdcEquiMoniGauge3" style="width: 200px; height: 200px;margin : 0 auto"
+                         align="center">主轴负载
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><p>当前执行程序</p></td>
+                <td>
+                    <input id="mdcEquiMoni-executingcode" class="easyui-textbox" data-options="readonly:true" style="height:22px">
+                </td>
+                <td>
+                    <p>主轴倍率</p>
+                </td>
+                <td>
+                    <input id="mdcEquiMoni-spindlebeilv" class="easyui-textbox" data-options="readonly:true" style="height:22px">
+                </td>
+                <td>
+                    <p>进给倍率</p>
+                </td>
+                <td colspan="3">
+                    <input id="mdcEquiMoni-feedbeilv" class="easyui-textbox" data-options="readonly:true" style="height:22px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>主轴负载</p>
+                </td>
+                <td>
+                    <input id="mdcEquiMoni-spindleload" class="easyui-textbox" data-options="readonly:true" style="height:22px">
+                </td>
+                <td>
+                    <p>主轴转速</p>
+                </td>
+                <td>
+                    <input id="mdcEquiMoni-spindlespeed" class="easyui-textbox" data-options="readonly:true" style="height:22px">
+                </td>
+                <td>
+                    <p>进给速度</p>
+                </td>
+                <td>
+                    <input id="mdcEquiMoni-feedrate" class="easyui-textbox" data-options="readonly:true" style="height:22px">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+
+<script type="text/javascript" src="static/js/mdc/equipmentMonitor.js"></script>
+
 
 {{template "footer.html" .}}

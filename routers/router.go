@@ -1,10 +1,11 @@
 package routers
 
 import (
-	"github.com/astaxie/beego"
-	"mes/controllers"
-	"github.com/astaxie/beego/context"
 	"fmt"
+	"mes/controllers"
+
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context"
 )
 
 func init() {
@@ -12,15 +13,27 @@ func init() {
 	beego.Router("/login", &controllers.LoginController{})
 	beego.Router("/index", &controllers.LoginController{}, "*:Index")
 
-	beego.InsertFilter("/*",beego.BeforeRouter, func(c *context.Context) {
-		fmt.Println(c.Request.RequestURI)
-		_,ok := c.Input.Session("username").(string)
-		if !ok && c.Request.RequestURI != "/login"  {
+	beego.Router("/equipmentMonitor/equipmentallstate", &controllers.EquipmentController{}, "*:GetEquipmentAllState")
+	beego.Router("/equipmentMonitor/findByEquipmentId", &controllers.EquipmentDataController{}, "*:GetEquipmentId")
+
+	beego.InsertFilter("/*", beego.BeforeRouter, func(c *context.Context) {
+
+		_, ok := c.Input.Session("username").(string)
+
+		if !ok && c.Input.IsAjax() {
+			fmt.Println("ajax")
+			c.Output.JSON("relogin", true, true)
+
+		}
+
+		if !ok && c.Request.RequestURI != "/login" {
+			fmt.Println("normal")
 			c.Redirect(302, "/login")
 		}
 	})
 
-	beego.InsertFilter("/*",beego.BeforeExec, func(c *context.Context) {
-		c.Input.Data["username"] = c.Input.Session("username")
+	beego.InsertFilter("/*", beego.BeforeExec, func(c *context.Context) {
+
+		c.Input.SetData("username", c.Input.Session("username"))
 	})
 }

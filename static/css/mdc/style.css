@@ -1,0 +1,149 @@
+@charset "utf-8";
+/* CSS Document */
+#equipment_monitor_div * {
+	font-family: "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+	background: #fff;
+	border: 0;
+	padding: 0;
+	margin: 0
+}
+#equipment_monitor_div a {
+	text-decoration: none;
+	border: none !important;
+	cursor: pointer
+}
+#equipment_monitor_div .main {
+	width: 1280px;
+	margin: auto;
+	height: auto;
+	padding: 20px 0;
+	font-size: 16px;
+	font-weight: 600;
+	position: relative;
+}
+#equipment_monitor_div .inc-box {
+	width: 90%;
+	margin: 10px auto;
+	height: 102px;
+	text-align: center
+}
+#equipment_monitor_div .inc-box .div20 {
+	width: 19.8%;
+	height: 102px;
+	float: left
+}
+#equipment_monitor_div .inc-box .div22 {
+	width: 21.5%;
+	height: 102px;
+	float: left
+}
+#equipment_monitor_div .inc-box .light {
+	height: 90px;
+	float: left;
+	padding-left:30px
+}
+#equipment_monitor_div .inc-box .inc {
+	height: 90px;
+	float: right;
+	padding-right:30px
+}
+#equipment_monitor_div .mt-30 {
+	margin-top: 30px;
+}
+#equipment_monitor_div .clear {
+	clear: both
+}
+#equipment_monitor_div .inc-mes {
+	width: 90%;
+	margin: auto;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	
+}
+#equipment_monitor_div .inc-mes .cell20 {
+	width: 20%;
+	height: 40px;
+	float: left;
+}
+#equipment_monitor_div .inc-mes .cell60 {
+	width: 60%;
+	height: 40px;
+	float: left;
+}
+#equipment_monitor_div .robot-box {
+	width: 90%;
+	margin: 60px auto;
+	height: 90px;
+}
+#equipment_monitor_div .robot-box-l {
+	width: 30%;
+	height: 90px;
+	float: left;
+	position: relative;
+	
+}
+/*#equipment_monitor_div .robot-box-r {*/
+	/*width: 48%;*/
+	/*height: 90px;*/
+	/*float: right;*/
+	/*position: relative;*/
+/*}*/
+#equipment_monitor_div .robot-box-l img, .robot-box-r img {
+	height: 88px !important;
+}
+#equipment_monitor_div .robot-float {
+	position: absolute;
+	width: 80%;
+	height: 50px;
+	line-height: 50px;
+	left: 5%;
+	top: 40px;
+	background: transparent
+}
+#equipment_monitor_div .robot-float img {
+	height: 40px !important;
+	width: 500px;
+	margin-top: 5px;
+	margin-left: 0;
+	background: transparent;
+	cursor: pointer
+}
+#equipment_monitor_div .fl-l {
+	float: left
+}
+#equipment_monitor_div .fl-r {
+	float: right
+}
+#equipment_monitor_div .fl-l-120{
+	margin-left:120px
+}
+#equipment_monitor_div .scr-1 {
+	position: absolute;
+	width: 40px;
+	height: 200px;
+	border: #069 2px solid;
+	top: 50px;
+	right: 0px
+}
+#equipment_monitor_div .scr-2 {
+	position: absolute;
+	width: 40px;
+	height: 200px;
+	border: #069 2px solid;
+	top: 50px;
+	left: 0px
+}
+#equipment_monitor_div .scr-3 {
+	position: absolute;
+	width: 40px;
+	height: 200px;
+	border: #069 2px solid;
+	bottom: 50px;
+	left: 0px
+}
+#equipment_monitor_div .scr-1 img, .scr-2 img, .scr-3 img {
+	width: 30px !important;
+	margin-top: 60px;
+	margin-left: 5px
+}
