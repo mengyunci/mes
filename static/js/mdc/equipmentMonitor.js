@@ -109,7 +109,7 @@ function getEquipmentState() {
 				return
 			}
             $.each(data,function(index, value) {
-                equipmentAll.find("#equipment_" + value.EquipmentID).attr("src", setEquipmentIcon(value.Oporation))
+                equipmentAll.find("#equipment_" + value.equipmentid).attr("src", setEquipmentIcon(value.Oporation))
                     .closest("a").attr({"dataopo":value.Oporation,"dataname":value.EquipmentName});
             });
         }

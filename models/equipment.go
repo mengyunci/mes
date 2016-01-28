@@ -9,7 +9,7 @@ import (
 
 type Equipment struct {
 	BeltlineID    string    `orm:"pk;column(BeltlineID);size(20)"`
-	EquipmentID   string    `orm:"column(EquipmentID);size(20)"`
+	EquipmentID   string    `orm:"column(EquipmentID);size(20)"json:"equipmentid"`
 	Alarm         string    `orm:"column(alarm);size(20);null"`
 	CollectTime   time.Time `orm:"column(collectTime);type(datetime);null"`
 	EquipmentName string    `orm:"column(equipmentName);size(20);null"`
