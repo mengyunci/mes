@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 
+	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -160,6 +161,43 @@ func (c *MenuController) Delete() {
 		c.Data["json"] = "OK"
 	} else {
 		c.Data["json"] = err.Error()
+	}
+	c.ServeJSON()
+}
+
+func (c *MenuController) LoadByModuleId() {
+	mid := c.Ctx.Input.Param(":moduleid")
+
+	query := make(map[string]string)
+	query["ModuId"] = mid
+	q := make([]string, 0)
+	menus, err := models.GetAllMenu(query, q, q, q, 0, -1)
+	if err != nil {
+		c.Data["json"] = err.Error()
+	} else {
+		rMenu := make([]models.Menu, 0)
+		pMenu := make(map[int]models.Menu)
+		for _, v := range menus {
+			vt, _ := v.(models.Menu)
+			if vt.ParentId == 0 {
+				pMenu[vt.Id] = vt
+			}
+		}
+		for _, v := range menus {
+			vt, _ := v.(models.Menu)
+			if vt.ParentId != 0 {
+				t := pMenu[vt.ParentId]
+				t.Children = append(t.Children, vt)
+				pMenu[vt.ParentId] = t
+			}
+		}
+
+		for _, v := range pMenu {
+			rMenu = append(rMenu, v)
+		}
+
+		fmt.Println()
+		c.Data["json"] = rMenu
 	}
 	c.ServeJSON()
 }

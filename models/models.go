@@ -1,14 +1,19 @@
 package models
 
 import (
+	"github.com/astaxie/beego/config"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func Init() {
 
-	dsn := "root:mysql@tcp(192.168.0.123:3306)/mes?charset=utf8"
+	iniconf, err := config.NewConfig("ini", "conf/app.conf")
+	if err != nil {
+		panic(err)
+	}
 
+	dsn := iniconf.String("dns")
 	orm.RegisterDataBase("default", "mysql", dsn)
 
 }

@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/astaxie/beego/cache"
 	"github.com/astaxie/beego/orm"
 )
 
@@ -26,7 +27,10 @@ func (t *Module) TableName() string {
 	return "module"
 }
 
+var c cache.Cache
+
 func init() {
+	c = cache.NewMemoryCache()
 	orm.RegisterModel(new(Module))
 }
 
@@ -154,11 +158,19 @@ func DeleteModule(id int) (err error) {
 }
 
 func GetAllModuleByPriority() (ml []Module, err error) {
-	o := orm.NewOrm()
-	num, err := o.Raw("SELECT * FROM mes.module order by priority").QueryRows(&ml)
-	if err != nil {
-		fmt.Println("Returned Rows Num: %s, %s", num, err)
-		return nil, err
+	// TODO need add reset cache
+	if !c.IsExist("modules") {
+		o := orm.NewOrm()
+		num, err := o.Raw("SELECT * FROM mes.module order by priority").QueryRows(&ml)
+		if err != nil {
+			fmt.Println("Returned Rows Num: %s, %s", num, err)
+			return nil, err
+		}
+		c.Put("modules", ml, 0)
+
+	} else {
+		ml = c.Get("modules").([]Module)
 	}
 	return
+
 }

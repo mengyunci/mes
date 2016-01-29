@@ -11,11 +11,11 @@ import (
 )
 
 type Menu struct {
-	Id          int       `orm:"column(id);auto"`
+	Id          int       `orm:"column(id);auto"json:"id"`
 	CreateTime  time.Time `orm:"column(createTime);type(datetime)"`
 	CreateUser  string    `orm:"column(createUser);size(30);null"`
 	IconCls     string    `orm:"column(iconCls);size(50);null"`
-	Name        string    `orm:"column(name);size(30);null"`
+	Name        string    `orm:"column(name);size(30);null"json:"text"`
 	Priority    int       `orm:"column(priority)"`
 	Description string    `orm:"column(description);size(200);null"`
 	Type        int       `orm:"column(type);null"`
@@ -23,7 +23,9 @@ type Menu struct {
 	ParentId    int       `orm:"column(parentId);null"`
 	ModuId      int       `orm:"column(moduId);null"`
 	PermCode    string    `orm:"column(permCode);size(50);null"`
-	Children    []Menu    `orm:"-"`
+	Children    []Menu    `orm:"-"json:"children"`
+	Checked     bool      `orm:"-"json:"checked"`
+	State       string    `orm:"-"json:"state"`
 }
 
 func (t *Menu) TableName() string {
