@@ -23,7 +23,7 @@ type Menu struct {
 	ParentId    int       `orm:"column(parentId);null"`
 	ModuId      int       `orm:"column(moduId);null"`
 	PermCode    string    `orm:"column(permCode);size(50);null"`
-	Children    []Menu    `orm:"-"json:"children"`
+	Children    []Menu    `orm:"-"json:"children,omitempty"`
 	Checked     bool      `orm:"-"json:"checked"`
 	State       string    `orm:"-"json:"state"`
 }

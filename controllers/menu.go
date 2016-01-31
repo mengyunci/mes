@@ -175,26 +175,80 @@ func (c *MenuController) LoadByModuleId() {
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
-		rMenu := make([]models.Menu, 0)
+
+		// 1. 需要保证数据结构的正确性
+		// pMenu := make(map[int]models.Menu)
+		// rMenu := make([]models.Menu, 0)
+
+		// for _, v := range menus {
+		// 	vt, _ := v.(models.Menu)
+		// 	if vt.ParentId == 0 {
+		// 		pMenu[vt.Id] = vt
+		// 	} else {
+		// 		t := pMenu[vt.ParentId]
+		// 		t.Children = append(t.Children, vt)
+		// 		pMenu[vt.ParentId] = t
+		// 	}
+		// }
+
+		// for _, v := range pMenu {
+		// 	rMenu = append(rMenu, v)
+		// }
+
+		// 2.不需要保证数据结构的正确性
+		// rMenu := make([]models.Menu, 0)
+		// pMenu := make(map[int]models.Menu)
+		// for _, v := range menus {
+		// 	vt, _ := v.(models.Menu)
+		// 	if vt.ParentId == 0 {
+		// 		pMenu[vt.Id] = vt
+		// 	}
+		// }
+		// for _, v := range menus {
+		// 	vt, _ := v.(models.Menu)
+		// 	if vt.ParentId != 0 {
+		// 		t := pMenu[vt.ParentId]
+		// 		t.Children = append(t.Children, vt)
+		// 		pMenu[vt.ParentId] = t
+		// 	}
+		// }
+
+		// for _, v := range pMenu {
+		// 	rMenu = append(rMenu, v)
+		// }
+
+		// 3.直接组装父节点,效率更高,不需要保证数据结构的正确性
 		pMenu := make(map[int]models.Menu)
+		cMenu := make(map[int][]models.Menu)
+		rMenu := make([]models.Menu, 0)
 		for _, v := range menus {
 			vt, _ := v.(models.Menu)
 			if vt.ParentId == 0 {
 				pMenu[vt.Id] = vt
-			}
-		}
-		for _, v := range menus {
-			vt, _ := v.(models.Menu)
-			if vt.ParentId != 0 {
-				t := pMenu[vt.ParentId]
-				t.Children = append(t.Children, vt)
-				pMenu[vt.ParentId] = t
+			} else {
+				cMenu[vt.ParentId] = append(cMenu[vt.ParentId], vt)
 			}
 		}
 
-		for _, v := range pMenu {
+		for k, v := range pMenu {
+			v.Children = cMenu[k]
 			rMenu = append(rMenu, v)
 		}
+
+		// 4.使用地址进行传值,效率最快,只需要一次循环,需要保证数据结构的正确性
+		// pMenu := make(map[int]*models.Menu)
+		// rMenu := make([]*models.Menu, 0)
+
+		// for _, v := range menus {
+		// 	vt, _ := v.(models.Menu)
+		// 	if vt.ParentId == 0 {
+		// 		pMenu[vt.Id] = &vt
+		// 		rMenu = append(rMenu, &vt)
+		// 	} else {
+		// 		t := pMenu[vt.ParentId]
+		// 		t.Children = append(t.Children, vt)
+		// 	}
+		// }
 
 		fmt.Println()
 		c.Data["json"] = rMenu

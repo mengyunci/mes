@@ -58,6 +58,18 @@
                              <li{{if eq .Url $.url}} class="active"{{end}}><a href="{{.Url}}">{{.Name}}</a></li>
                         {{end}}
                     </ul>
+                     <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> {{.username}} <i class="caret"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li><a href="/logout">Logout</a></li>
+                            </ul>
+                        </li>
+                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>
         </div>

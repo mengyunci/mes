@@ -30,7 +30,7 @@ func (this *MesController) Get() {
 	query := make(map[string]string)
 	query["ModuId"] = strconv.Itoa(moudleID)
 	q := make([]string, 0)
-	menus, err := models.GetAllMenu(query, q, q, q, 0, -1)
+	menus, err := models.GetAllMenu(query, q, []string{"desc", "desc"}, []string{"ParentId", "ModuId"}, 0, -1)
 	if err != nil {
 		fmt.Println(err)
 	}

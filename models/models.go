@@ -14,6 +14,8 @@ func Init() {
 	}
 
 	dsn := iniconf.String("dns")
-	orm.RegisterDataBase("default", "mysql", dsn)
+	if err := orm.RegisterDataBase("default", "mysql", dsn); err != nil {
+		panic(err)
+	}
 
 }
