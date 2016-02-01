@@ -181,3 +181,35 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2016-01-29 15:44:54
+
+DROP TABLE IF EXISTS `sh_plan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sh_plan` (
+  `plancode` int(11) NOT NULL AUTO_INCREMENT,
+  `planname` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `starttime` datetime DEFAULT NULL,
+  `finishtime` datetime DEFAULT NULL,
+  `beltline` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `productmodel_id` int(11) DEFAULT NULL,
+  `plancount` int(11) DEFAULT NULL,
+  `completecount` int(11) DEFAULT NULL,
+  `planperson` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `plandate` datetime DEFAULT NULL,
+  `status` int(11) DEFAULT '0',
+  `actualstarttime` datetime DEFAULT NULL,
+  `actualfinishtime` datetime DEFAULT NULL,
+  `unqualify` int(11) DEFAULT '0',
+  PRIMARY KEY (`plancode`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sh_plan`
+--
+
+LOCK TABLES `sh_plan` WRITE;
+/*!40000 ALTER TABLE `sh_plan` DISABLE KEYS */;
+INSERT INTO `sh_plan` VALUES (1,'3','2016-01-20 00:00:00','2016-01-20 00:00:00','A',49,900,660,'',NULL,2,'2016-01-21 16:12:28','2016-01-21 16:18:27',0),(2,'一月份计划','2016-01-01 00:00:00','2016-01-30 00:00:00','A',49,8000,3600,'',NULL,1,'2016-01-25 17:00:33',NULL,0);
+/*!40000 ALTER TABLE `sh_plan` ENABLE KEYS */;
+UNLOCK TABLES;

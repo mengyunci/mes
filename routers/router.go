@@ -22,6 +22,8 @@ func init() {
 
 	beego.Router("/menu/loadmodule/:moduleid", &controllers.MenuController{}, "*:LoadByModuleId")
 
+	beego.Router("/shplan/getall", &controllers.ShPlanController{}, "*:GetAll")
+
 	// beego.InsertFilter("/*", beego.BeforeRouter, func(c *context.Context) {
 
 	// 	_, ok := c.Input.Session("username").(string)

@@ -5,13 +5,224 @@
 		<div class="col-md-2">
 			<ul id="tt"></ul>
 		</div>
+
+		<div class="col-md-10">
+			<table id="sh_plan_table"></table>
+		</div>
 	</div>
 </div>
 <script type="text/javascript">
 	
+$(function() {
 $('#tt').tree({
-    url:'/menu/loadmodule/4'
-});
+	    url:'/menu/loadmodule/4'
+	});
+
+$('#sh_plan_table').datagrid({
+        //view: detailview,
+        title: '生产计划管理',
+        iconCls: 'icon-table-gear-cus',
+        height: 500,
+        url: '/shplan/getall',
+        queryParams: {},
+        singleSelect: true,
+        fitColumns: true,
+        idField: 'id',
+        pagination: true,
+        rownumbers: true,
+        columns: [[
+            {field: 'id', hidden : true},
+            {field: 'planName', title: '计划名称', halign: 'center', align: 'left', width: 10},
+            {field: 'startTime', title: '计划开始时间', halign: 'center', align: 'left', width: 10},
+            {field: 'finishTime', title: '计划完成时间', halign: 'center', align: 'left', width: 10},
+            {field: 'actualStartTime', title: '实际开始时间', halign: 'center', align: 'left', width: 10},
+            {field: 'actualFinishTime', title: '实际完成时间', halign: 'center', align: 'left', width: 10},
+            {
+                field: 'productModel',
+                title: '产品型号',
+                halign: 'center',
+                align: 'left',
+                width: 10
+            },
+            {field: 'planCount', title: '计划产量', halign: 'center', align: 'left', width: 10},
+            {field: 'completeCount', title: '完成量', halign: 'center', align: 'left', width: 10},
+            {field: 'unqualify', title: '不合格量', halign: 'center', align: 'left', width: 10},
+            {field: 'planPerson', title: '下达人', halign: 'center', align: 'left', width: 10},
+            {field: 'planDate', title: '下达时间', halign: 'center', align: 'left', width: 10},
+            {
+                field: 'status',
+                title: '计划状态',
+                halign: 'center',
+                align: 'left',
+                width: 10,
+                formatter: function (value) {
+                    switch (value) {
+                        case 1 : return '进行中';
+                        case 2 : return '完成';
+                        default : return '下达';
+                    }
+                }
+            }
+        ]],
+        toolbar: [{
+            iconCls: 'icon-add',
+            text: '新增',
+            handler: function () {
+                dlgButtonAction('datagrid','sh_plan_dlg', '新增计划信息', 340, null, '/shplan/add.xhtml', 'sh_plan_form', 'sh_plan_table');
+            }
+        }, '-', {
+            iconCls: 'icon-edit',
+            text: '编辑',
+            handler: function () {
+                var selectedRow = $('#sh_plan_table').datagrid('getSelected');
+                if (selectedRow == null) {
+                    $.messager.alert('操作提示', '请选择编辑数据行！');
+                } else {
+                    $("#sh_plan_input_plan_code").val(selectedRow['planCode']);
+                    $('#sh_plan_input_plan_name').textbox('setValue', selectedRow['planName']);
+                    $('#sh_plan_input_beltline').combobox('setValue', selectedRow['productLine']['number']);
+                    $('#sh_plan_input_product_model').combogrid('setValue', selectedRow['productModel']['id']);
+                    $('#sh_plan_input_plan_count').numberspinner('setValue', selectedRow['planCount']);
+                    $('#sh_plan_input_start_time').datebox('setValue', selectedRow['startTime']);
+                    $('#sh_plan_input_finish_time').datebox('setValue', selectedRow['finishTime']);
+                    $('#sh_plan_input_plan_person').textbox('setValue', selectedRow['planPerson']);
+                    $('#sh_plan_input_plan_date').datetimebox('setValue', selectedRow['planDate']);
+                    dlgButtonAction('datagrid','sh_plan_dlg', '编辑计划信息', 340, 'icon-edit', '/shplan/editOrAdd.xhtml', 'sh_plan_form', 'sh_plan_table');
+                }
+            }
+        }, '-', {
+            iconCls: 'icon-remove',
+            text: '删除',
+            handler: function () {
+                var selectedRow = $('#sh_plan_table').datagrid('getSelected');
+                if (selectedRow == null) {
+                    $.messager.alert('操作提示', '请选择删除数据行！');
+                    return;
+                }
+                var status = selectedRow['status'];
+                switch (status) {
+                    case 2:
+                        $.messager.alert('提示','计划已经完成,不允许删除');
+                        return;
+                }
+                $.messager.confirm('提示', '请谨慎删除,将会同时删除该计划下的详细计划？', function (r) {
+                    if (r) {
+                        $.post('/shplan/deleteshplan.xhtml', {planCode: selectedRow['planCode']}, function (data) {
+                            if (data.success) {
+                                msgShow('消息', '删除成功！');
+                                if ($('#sh_plan_table').length > 0) {
+                                    $('#sh_plan_table').datagrid('reload');
+                                } else {
+                                    $('#sh_plan_table').treegrid('reload');
+                                }
+                            } else {
+                                msgShow('消息', '删除失败！');
+                            }
+                        });
+                    }
+                });
+            }
+        }, '-', {
+            iconCls: 'icon-reload',
+            text: '刷新',
+            handler: function () {
+                $('#sh_plan_table').datagrid('reload');
+            }
+        }, '-', {
+            iconCls: 'icon-ok',
+            text: '计划开始',
+            handler: function () {
+                var selectedRow = $('#sh_plan_table').datagrid('getSelected');
+                if (selectedRow == null) {
+                    $.messager.alert('操作提示', '请选择编辑数据行！');
+                } else {
+                    var status = selectedRow['status'];
+                    switch (status) {
+                        case 1:
+                            $.messager.alert('提示','计划已经开始');
+                            return;
+                        case 2:
+                            $.messager.alert('提示','计划已经完成');
+                            return;
+                    }
+                    $.messager.confirm('提示', '开始计划', function (r) {
+                        if (r) {
+                            $.post('/shplan/startplan.xhtml', {planCode: selectedRow['planCode']}, function (data) {
+                                if (data.success) {
+                                    msgShow('消息', '修改成功!');
+                                    $('#sh_plan_table').datagrid('reload');
+                                } else {
+                                    msgShow('消息', data.msg);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        }, '-', {
+            iconCls: 'icon-ok',
+            text: '计划完成',
+            handler: function () {
+                var selectedRow = $('#sh_plan_table').datagrid('getSelected');
+                if (selectedRow == null) {
+                    $.messager.alert('操作提示', '请选择编辑数据行！');
+                } else {
+                    var status = selectedRow['status'];
+                    switch (status) {
+                        case 0:
+                            $.messager.alert('提示','计划未开始');
+                            return;
+                        case 2:
+                            $.messager.alert('提示','计划已经完成');
+                            return;
+                    }
+                    if (selectedRow['planCount'] > selectedRow['completeCount'] ) {
+                        $.messager.confirm('计划未完成', '需要提前完成？', function (r) {
+                            if (r) {
+                                $.post('/shplan/completePlan.xhtml', {planCode: selectedRow['planCode']}, function (data) {
+                                    if (data.success) {
+                                        msgShow('消息', '修改成功!');
+                                        $('#sh_plan_table').datagrid('reload');
+                                    } else {
+                                        msgShow('消息', '修改失败！');
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        $.messager.confirm('提示', '完成计划', function (r) {
+                            if (r) {
+                                $.post('/shplan/completePlan.xhtml', {planCode: selectedRow['planCode']}, function (data) {
+                                    if (data.success) {
+                                        msgShow('消息', '修改成功!');
+                                        $('#sh_plan_table').datagrid('reload');
+                                    } else {
+                                        msgShow('消息', '修改失败！');
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+        }, '-', {
+            iconCls: 'icon-save',
+            text: '计划导出',
+            handler: function () {
+                $.messager.confirm('提示', '确认导出?', function (r) {
+                    if (r) {
+                        window.open("/shplan/planexport.xhtml");
+                    }
+                });
+            }
+        }]
+    });
+
+})
+
+
+
+	
 </script>
 
 
