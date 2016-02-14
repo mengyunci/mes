@@ -17,12 +17,11 @@ $(function() {
 $('#tt').tree({
 	    url:'/menu/loadmodule/4'
 	});
-
 $('#sh_plan_table').datagrid({
         //view: detailview,
         title: '生产计划管理',
         iconCls: 'icon-table-gear-cus',
-        height: 500,
+        height: pHeight,
         url: '/shplan/getall',
         queryParams: {},
         singleSelect: true,
