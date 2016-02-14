@@ -3,3 +3,4 @@
 *.exe~
 mes
 .DS_Store
+conf/app.conf
